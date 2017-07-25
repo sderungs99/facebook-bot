@@ -1,0 +1,29 @@
+{
+  "name": "facebook-bot",
+  "version": "1.0.0",
+  "description": "Facebook Bot Playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "later"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sderungs99/facebook-bot.git"
+  },
+  "keywords": [
+    "facebook",
+    "bot",
+    "chatbot"
+  ],
+  "author": "Sascha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sderungs99/facebook-bot/issues"
+  },
+  "homepage": "https://github.com/sderungs99/facebook-bot#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "request": "^2.81.0"
+  }
+}
