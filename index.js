@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 app.get('/webhook/', function(req, res) {
     if(req.query['hub.verify_token'] === 'my-verify-token') {
         console.log("Validating webhook");
-        res.send(req.query[hub.challenge]);
+        res.send(req.query['hub.challenge']);
     } else {
         console.error("Failed validation. Make sure the validation tokens match.");
         res.send('No entry');
