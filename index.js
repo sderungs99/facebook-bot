@@ -23,6 +23,11 @@ const PAGE_ACCESS_TOKEN = (process.env.FB_ACCESS_TOKEN) ?
     (process.env.FB_ACCESS_TOKEN) :
     config.get('pageAccessToken');
 
+if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
+  console.error("Missing config values");
+  process.exit(1);
+}
+
 app.get('/', function (req, res) {
     res.send('Hello World');
 });
