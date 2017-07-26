@@ -1,6 +1,7 @@
 const
     express = require('express'),
     bodyParser = require('body-parser'),
+    crypto = require('crypto'),
     request = require('request');
 
 var app = express();
