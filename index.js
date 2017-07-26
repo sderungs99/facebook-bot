@@ -11,15 +11,15 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
 //config values
-const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
+const APP_SECRET = (process.env.FB_APP_SECRET) ?
     process.env.FB_APP_SECRET :
     config.get('appSecret');
 
-const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
+const VALIDATION_TOKEN = (process.env.FB_VERIFY_TOKEN) ?
     (process.env.FB_VERIFY_TOKEN) :
     config.get('validationToken');
 
-const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
+const PAGE_ACCESS_TOKEN = (process.env.FB_ACCESS_TOKEN) ?
     (process.env.FB_ACCESS_TOKEN) :
     config.get('pageAccessToken');
 
