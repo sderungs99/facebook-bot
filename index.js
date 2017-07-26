@@ -1,6 +1,7 @@
 const
     express = require('express'),
     bodyParser = require('body-parser'),
+    config = require('config'),
     crypto = require('crypto'),
     request = require('request');
 
@@ -9,9 +10,18 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-const TOKEN = process.env.FB_VERIFY_TOKEN;
-const ACCESS = process.env.FB_ACCESS_TOKEN;
-const APP_SECRET = process.env.FB_APP_SECRET;
+//config values
+const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
+    process.env.FB_APP_SECRET :
+    config.get('appSecret');
+
+const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
+    (process.env.FB_VERIFY_TOKEN) :
+    config.get('validationToken');
+
+const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
+    (process.env.FB_ACCESS_TOKEN) :
+    config.get('pageAccessToken');
 
 app.get('/', function (req, res) {
     res.send('Hello World');
@@ -19,7 +29,7 @@ app.get('/', function (req, res) {
 
 app.get('/webhook', function (req, res) {
     if (req.query['hub.mode'] === 'subscribe' &&
-        req.query['hub.verify_token'] === TOKEN) {
+        req.query['hub.verify_token'] === VALIDATION_TOKEN) {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
     } else {
@@ -172,7 +182,7 @@ function sendGenericMessage(recipientId) {
 function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: ACCESS },
+        qs: { access_token: PAGE_ACCESS_TOKEN },
         method: 'POST',
         json: messageData
 
